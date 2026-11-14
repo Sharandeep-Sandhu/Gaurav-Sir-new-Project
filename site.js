@@ -1,0 +1,10 @@
+const menuButton=document.getElementById('menuButton');
+const nav=document.getElementById('nav');
+if(menuButton&&nav){menuButton.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Close menu':'Open menu')});nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');menuButton.setAttribute('aria-expanded','false')}))}
+document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
+const contactForm=document.getElementById('contactForm');
+if(contactForm)contactForm.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(contactForm);const subject=encodeURIComponent(data.get('subject'));const body=encodeURIComponent(`Name: ${data.get('name')}\nEmail: ${data.get('email')}\n\n${data.get('message')}`);window.location.href=`mailto:info@multigrowventures.au?subject=${subject}&body=${body}`;document.getElementById('formMessage').textContent='Your email app will open with your message ready to send.'});
+const newsletterForm=document.getElementById('newsletterForm');
+if(newsletterForm)newsletterForm.addEventListener('submit',event=>{event.preventDefault();const email=new FormData(newsletterForm).get('email');const subject=encodeURIComponent('New Subscription');const body=encodeURIComponent(`Please subscribe this email address: ${email}`);window.location.href=`mailto:info@multigrowventures.au?subject=${subject}&body=${body}`;document.getElementById('newsletterMessage').textContent='Your email app will open with your subscription request ready to send.'});
+const filterButtons=document.querySelectorAll('[data-filter]');
+if(filterButtons.length){const cards=document.querySelectorAll('.project-card[data-category]');filterButtons.forEach(button=>button.addEventListener('click',()=>{const filter=button.dataset.filter;filterButtons.forEach(item=>item.classList.toggle('active',item===button));cards.forEach(card=>card.hidden=filter!=='all'&&card.dataset.category!==filter)}))}
